@@ -6,22 +6,18 @@
 // Program on T01 branch - Assignments Q1
 // ------------------------------------------------------------------------------------------------
 using System.Text;
-
 namespace Training_25;
 
 internal class Program {
    static void Main (string[] args) {
-
       Console.WriteLine ("Enter a number");
       string? input = Console.ReadLine ();
       int num;
-
       while (!int.TryParse (input, out num)) {
          Console.WriteLine ("Invalid input.Please enter a valid number:");
          input = Console.ReadLine ();
       }
       Console.WriteLine ($"Input:{num}");
-
       if (num <= 9 && num >= 0) {
          Console.WriteLine ($"HEX:{num}");
       } else if (num <= 16 && num > 9) {
@@ -36,11 +32,9 @@ internal class Program {
       } else {
          int n = num;
          StringBuilder sb = new StringBuilder ();
-
          while (n > 0) {
             int r = n % 16;
             n = n / 16;
-
             if (r < 10) {
                sb.Insert (0, r);
             } else {
@@ -58,6 +52,9 @@ internal class Program {
       }
       int b = num;
       StringBuilder bn = new StringBuilder ();
+      if (b == 0) {
+         bn.Insert (0, 0);
+      }
       while (b > 0) {
          int r = b % 2;
          b = b / 2;
