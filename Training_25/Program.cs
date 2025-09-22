@@ -13,9 +13,13 @@ internal class Program {
    static void Main (string[] args) {
 
       Console.WriteLine ("Enter a number");
-      string input = Console.ReadLine ();
-      int num = Convert.ToInt32 (input);
+      string? input = Console.ReadLine ();
+      int num;
 
+      while (!int.TryParse (input, out num)) {
+         Console.WriteLine ("Invalid input.Please enter a valid number:");
+         input = Console.ReadLine ();
+      }
       Console.WriteLine ($"Input:{num}");
 
       if (num <= 9 && num >= 0) {
@@ -47,32 +51,19 @@ internal class Program {
                   case 13: sb.Insert (0, "D"); break;
                   case 14: sb.Insert (0, "E"); break;
                   case 15: sb.Insert (0, "F"); break;
-
                }
             }
          }
          Console.WriteLine ($"HEX:{sb}");
-         // Console.WriteLine($"HEX:{(q * 10) + r}");
-
-
-
       }
       int b = num;
       StringBuilder bn = new StringBuilder ();
       while (b > 0) {
          int r = b % 2;
          b = b / 2;
-
          bn.Insert (0, r);
-
       }
       Console.WriteLine ($"Binary:{bn}");
-
-
-
-
       Console.ReadLine ();
-
-
    }
 }
