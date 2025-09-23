@@ -3,7 +3,7 @@
 // Copyright (c) Metamation India.
 // ------------------------------------------------------------------
 // Program.cs
-// Program on T01 branch - Assignments Q1
+// Program on T01 branch - Assignments Q1: NUMBER CONVERSION GAME
 // ------------------------------------------------------------------------------------------------
 using System.Text;
 namespace Training_25;
@@ -13,25 +13,18 @@ internal class Program {
       Console.WriteLine ("Enter a number");
       string? input = Console.ReadLine ();
       int num;
-      while (!int.TryParse (input, out num)) {
-         Console.WriteLine ("Invalid input.Please enter a valid number:");
+      while (string.IsNullOrWhiteSpace (input) || !int.TryParse (input, out num)) {
+         Console.WriteLine ("Invalid input. Please enter a  number:");
          input = Console.ReadLine ();
       }
-      Console.WriteLine ($"Input:{num}");
-      if (num <= 9 && num >= 0) {
-         Console.WriteLine ($"HEX:{num}");
-      } else if (num <= 16 && num > 9) {
-         switch (num) {
-            case 10: Console.WriteLine ("HEX:A"); break;
-            case 11: Console.WriteLine ("HEX:B"); break;
-            case 12: Console.WriteLine ("HEX:C"); break;
-            case 13: Console.WriteLine ("HEX:D"); break;
-            case 14: Console.WriteLine ("HEX:E"); break;
-            case 15: Console.WriteLine ("HEX:F"); break;
-         }
+      Console.WriteLine ($"Input: {num}");
+      int n = num;
+      if (n == 0) {
+         Console.WriteLine ("HEX: 0");
       } else {
-         int n = num;
-         StringBuilder sb = new StringBuilder ();
+         bool isNegative = n < 0;
+         n = Math.Abs (n);
+         StringBuilder sb = new ();
          while (n > 0) {
             int r = n % 16;
             n = n / 16;
@@ -48,10 +41,11 @@ internal class Program {
                }
             }
          }
-         Console.WriteLine ($"HEX:{sb}");
+         string hexResult = isNegative ? "-" + sb.ToString () : sb.ToString ();
+         Console.WriteLine ($"HEX: {hexResult}");
       }
-      int b = num;
-      StringBuilder bn = new StringBuilder ();
+      int b = Math.Abs (num);
+      StringBuilder bn = new ();
       if (b == 0) {
          bn.Insert (0, 0);
       }
@@ -60,7 +54,8 @@ internal class Program {
          b = b / 2;
          bn.Insert (0, r);
       }
-      Console.WriteLine ($"Binary:{bn}");
+      string binResult = (num < 0 ? "-" : "") + bn.ToString ();
+      Console.WriteLine ($"Binary: {binResult}");
       Console.ReadLine ();
    }
 }
