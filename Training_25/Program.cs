@@ -3,8 +3,9 @@
 // Copyright (c) Metamation India.
 // ------------------------------------------------------------------
 // Program.cs
-// Program on T02 branch - Assignment Q2.
+// Program on T02 branch - Assignment Q2: NUMBER TO WORDS AND ROMAN NUMERALS CONVERTER.
 // ------------------------------------------------------------------------------------------------
+namespace Training_25;
 internal class Program {
    static void Main (string[] args) {
       (int, string)[] romanSymbol = { (1000,"M"),(900,"CM"),(500,"D"),(400,"CD"),(100,"C"),(90,"XC"),(50,"LX"),(40,"XL"),
@@ -32,7 +33,13 @@ internal class Program {
          }
       }
       static string ConvertToRoman (int number, (int, string)[] romanSymbol) {
+         if (number == 0)
+            return "N";
          string output = "";
+         if (number < 0) {
+            output += "-"; 
+            number=Math.Abs (number);
+         }
          foreach (var (value, symbol) in romanSymbol) {
             while (number >= value) {
                output += symbol;
@@ -46,7 +53,7 @@ internal class Program {
             return "Zero";
          }
          if (number < 0) {
-            return "Minus" + ConvertToWords (Math.Abs (number));
+            return "Minus " + ConvertToWords (Math.Abs (number));
          }
          string words = "";
          if ((number / 1000000) > 0) {
