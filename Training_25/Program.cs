@@ -19,18 +19,17 @@ internal class Program {
       }
       Console.WriteLine ($"Input: {num}");
       int n = num;
-      if (n == 0) {
-         Console.WriteLine ("HEX: 0");
-      } else {
+      if (n == 0) Console.WriteLine ("HEX: 0");
+      else {
          bool isNegative = n < 0;
          n = Math.Abs (n);
          StringBuilder sb = new ();
          while (n > 0) {
             int r = n % 16;
             n = n / 16;
-            if (r < 10) {
+            if (r < 10) 
                sb.Insert (0, r);
-            } else {
+             else {
                switch (r) {
                   case 10: sb.Insert (0, "A"); break;
                   case 11: sb.Insert (0, "B"); break;
@@ -46,9 +45,7 @@ internal class Program {
       }
       int b = Math.Abs (num);
       StringBuilder bn = new ();
-      if (b == 0) {
-         bn.Insert (0, 0);
-      }
+      if (b == 0) bn.Insert (0, 0);      
       while (b > 0) {
          int r = b % 2;
          b = b / 2;
