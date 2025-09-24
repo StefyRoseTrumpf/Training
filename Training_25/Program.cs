@@ -26,19 +26,11 @@ internal class Program {
          StringBuilder sb = new ();
          while (n > 0) {
             int r = n % 16;
-            n = n / 16;
+            n /= 16;
             if (r < 10) 
                sb.Insert (0, r);
-             else {
-               switch (r) {
-                  case 10: sb.Insert (0, "A"); break;
-                  case 11: sb.Insert (0, "B"); break;
-                  case 12: sb.Insert (0, "C"); break;
-                  case 13: sb.Insert (0, "D"); break;
-                  case 14: sb.Insert (0, "E"); break;
-                  case 15: sb.Insert (0, "F"); break;
-               }
-            }
+             else
+               sb.Insert (0, (char)('A' + r - 10));
          }
          string hexResult = isNegative ? "-" + sb.ToString () : sb.ToString ();
          Console.WriteLine ($"HEX: {hexResult}");
@@ -48,7 +40,7 @@ internal class Program {
       if (b == 0) bn.Insert (0, 0);      
       while (b > 0) {
          int r = b % 2;
-         b = b / 2;
+         b /= 2;
          bn.Insert (0, r);
       }
       string binResult = (num < 0 ? "-" : "") + bn.ToString ();
