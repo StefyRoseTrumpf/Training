@@ -5,9 +5,17 @@
 // Program.cs
 // Program on main branch.
 // ------------------------------------------------------------------------------------------------
+using static System.Console;
 namespace Training_25;
+
 internal class Program {
    static void Main (string[] args) {
-      Console.WriteLine ("Hello, World!");
+      WriteLine ("Enter a number, to display it's multiplication table.");
+      int num;
+      while (!int.TryParse (ReadLine (), out num))
+         WriteLine ("Invalid input. Please enter a valid whole number.");
+      for (int i = 1; i <= 10; i++)
+         WriteLine ($"{num} * {i,2} = {num * i,-3}");
+      ReadLine ();
    }
 }
