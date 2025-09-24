@@ -3,7 +3,7 @@
 // Copyright (c) Metamation India.
 // ------------------------------------------------------------------
 // Program.cs
-// Program on main branch.
+// Program on T05 branch. Assignment Q5: Multiplication Table
 // ------------------------------------------------------------------------------------------------
 using static System.Console;
 namespace Training_25;
