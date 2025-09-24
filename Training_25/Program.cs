@@ -5,21 +5,25 @@
 // Program.cs
 // Program on T03 branch. Assignment Q3:LCM and GCD Generator
 // ------------------------------------------------------------------------------------------------
-using static System.Console;
 namespace Training_25;
 internal class Program {
    static void Main (string[] args) {
-      WriteLine ("Enter the first number:");
+      Console.WriteLine ("Enter the first number:");
+      string? input1 = Console.ReadLine ();
       int a;
-      while (!int.TryParse (ReadLine (), out a))
-         WriteLine ("Invalid input.Please enter a valid number.");
-      WriteLine ("Enter the second number:");
+      while (!int.TryParse (input1, out a)) {
+         Console.WriteLine ("Invalid input.Please enter a valid number.");
+         input1 = Console.ReadLine ();
+      }
+      Console.WriteLine ("Enter the second number:");
+      string? input2 = Console.ReadLine ();
       int b;
-      while (!int.TryParse (ReadLine (), out b))
-         WriteLine ("Invalid input.Please enter a valid number.");
-      WriteLine ($"GCD:{gcd (a, b)}");
-      WriteLine ($"LCM:{lcm (a, b)}");
-
+      while (!int.TryParse (input2, out b)) {
+         Console.WriteLine ("Invalid input.Please enter a valid number.");
+         input2 = Console.ReadLine ();
+      }
+      Console.WriteLine ($"GCD:{gcd (a, b)}");
+      Console.WriteLine ($"LCM:{lcm (a, b)}");
       static int gcd (int a, int b) {
          while (b != 0) {
             int temp = b;
@@ -28,11 +32,9 @@ internal class Program {
          }
          return a;
       }
-
       static int lcm (int a, int b) {
          return (a / gcd (a, b)) * b;
       }
-
-      ReadLine ();
+      Console.ReadLine ();
    }
 }
