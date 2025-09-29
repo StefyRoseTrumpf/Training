@@ -6,34 +6,38 @@
 // Program on T03 branch. Assignment Q3:LCM and GCD Generator
 // ------------------------------------------------------------------------------------------------
 using static System.Console;
+using static System.Math;
 namespace Training_25;
 
 internal class Program {
    static void Main (string[] args) {
-      WriteLine ("Enter the first number:");
-      int a;
-      while (!int.TryParse (ReadLine (), out a))
-         WriteLine ("Invalid input.Please enter a valid number.");
-      WriteLine ("Enter the second number:");
-      int b;
-      while (!int.TryParse (ReadLine (), out b))
-         WriteLine ("Invalid input.Please enter a valid number.");
-      WriteLine ($"GCD:{gcd (a, b)}");
-      WriteLine ($"LCM:{lcm (a, b)}");
-
-      static int gcd (int a, int b) {
-         while (b != 0) {
-            int temp = b;
-            b = a % b;
-            a = temp;
-         }
-         return a;
-      }
-
-      static int lcm (int a, int b) {
-         return (a / gcd (a, b)) * b;
-      }
-
+      int a = ReadValidInt ("Enter the first number: ");
+      int b = ReadValidInt ("Enter the second number: ");
+      WriteLine ($"GCD:{Gcd (a, b)}");
+      WriteLine ($"LCM:{Lcm (a, b)}");
       ReadLine ();
+   }
+
+   static int ReadValidInt (string message) {
+      WriteLine (message);
+      int num;
+      while (!int.TryParse (ReadLine (), out num))
+         WriteLine ("Invalid input. Please enter a valid number: ");
+      return num;
+   }
+
+   static int Gcd (int a, int b) {
+      a = Abs (a); b = Abs (b);
+      while (b != 0) {
+         int temp = b;
+         b = a % b;
+         a = temp;
+      }
+      return a;
+   }
+
+   static int Lcm (int a, int b) {
+      if (a == 0 || b == 0) return 0;
+      return Abs (a / Gcd (a, b) * b);
    }
 }
