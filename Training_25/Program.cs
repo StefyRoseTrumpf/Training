@@ -18,22 +18,22 @@ internal class Program {
          WriteLine ("Invalid input. Please enter a valid number: ");
       string userChoice = "";
       while (userChoice != "roman" && userChoice != "word") {
-         WriteLine ($"Input:{num}\nConvert {num} to Roman or Words? (Enter roman/word)");
+         WriteLine ($"Input: {num}\nConvert {num} to Roman or Words? (Enter roman/word)");
          userChoice = ReadLine ()?.ToLower ().Trim () ?? "";
          if (userChoice != "roman" && userChoice != "word")
             WriteLine ("Invalid choice! Please enter 'roman' or 'word'.");
       }
       switch (userChoice) {
          case "roman":
-            string roman = ConvertToRoman (num); WriteLine ($"Roman:{roman}");
+            string roman = ConvertToRoman (num); WriteLine ($"Roman: {roman}");
             break;
          case "word":
-            string word = ConvertToWords (num); WriteLine ($"Word:{word}");
-            break;         
+            string word = ConvertToWords (num); WriteLine ($"Word: {word}");
+            break;
       }
 
       static string ConvertToRoman (int number) {
-         (int, string)[] romanSymbol = [ (1000,"M"),(900,"CM"),(500,"D"),(400,"CD"),(100,"C"),(90,"XC"),(50,"L"),(40,"XL"),
+         (int, string)[] romanSymbol = [ (1_000,"M"),(900,"CM"),(500,"D"),(400,"CD"),(100,"C"),(90,"XC"),(50,"L"),(40,"XL"),
                                             (10,"X"),(9,"IX"),(5,"V"),(4,"IV"),(1,"I")];
          if (number == 0) return "N";
          string output = "";
@@ -54,17 +54,13 @@ internal class Program {
          if (number == 0) return "Zero";
          if (number < 0) return "Minus " + ConvertToWords (Abs (number));
          string words = "";
-         if ((number / 1000000) > 0) {
-            words += ConvertToWords (number / 1000000) + " Million ";
-            number %= 1000000;
+         if ((number / 10_00_000) > 0) {
+            words += ConvertToWords (number / 10_00_000) + " Million ";
+            number %= 10_00_000;
          }
-         if ((number / 100000) > 0) {
-            words += ConvertToWords (number / 100000) + " Lakh ";
-            number %= 100000;
-         }
-         if ((number / 1000) > 0) {
-            words += ConvertToWords (number / 1000) + " Thousand ";
-            number %= 1000;
+         if ((number / 1_000) > 0) {
+            words += ConvertToWords (number / 1_000) + " Thousand ";
+            number %= 1_000;
          }
          if ((number / 100) > 0) {
             words += ConvertToWords (number / 100) + " Hundred ";
