@@ -6,79 +6,66 @@
 // Program on T02 branch - Assignment Q2: NUMBER TO WORDS AND ROMAN NUMERALS CONVERTER.
 // ------------------------------------------------------------------------------------------------
 using static System.Console;
-using static System.Math;
 namespace Training_25;
 
 internal class Program {
    static void Main (string[] args) {
       WriteLine ("Enter a number.");
       int num;
-      string? input;
-      while (!int.TryParse (input = ReadLine (), out num))
+      while (!int.TryParse (ReadLine (), out num))
          WriteLine ("Invalid input. Please enter a valid number: ");
-      string userChoice = "";
-      while (userChoice != "roman" && userChoice != "word") {
+      string? userChoice;
+      while (true) {
          WriteLine ($"Input: {num}\nConvert {num} to Roman or Words? (Enter roman/word)");
-         userChoice = ReadLine ()?.ToLower ().Trim () ?? "";
-         if (userChoice != "roman" && userChoice != "word")
-            WriteLine ("Invalid choice! Please enter 'roman' or 'word'.");
+         userChoice = ReadLine ()?.ToLower ().Trim ();
+         switch (userChoice) {
+            case "roman": WriteLine (ConvertToRoman (num)); break;
+            case "word": WriteLine (ConvertToWords (num)); break;
+            default: WriteLine ("Invalid choice! Please enter 'roman' or 'word'."); continue;
+         }
+         break;
       }
-      switch (userChoice) {
-         case "roman":
-            string roman = ConvertToRoman (num); WriteLine ($"Roman: {roman}");
-            break;
-         case "word":
-            string word = ConvertToWords (num); WriteLine ($"Word: {word}");
-            break;
-      }
-
-      static string ConvertToRoman (int number) {
-         (int, string)[] romanSymbol = [ (1_000,"M"),(900,"CM"),(500,"D"),(400,"CD"),(100,"C"),(90,"XC"),(50,"L"),(40,"XL"),
-                                            (10,"X"),(9,"IX"),(5,"V"),(4,"IV"),(1,"I")];
-         if (number == 0) return "N";
-         string output = "";
-         if (number < 0) {
-            output += "-";
-            number = Abs (number);
-         }
-         foreach (var (value, symbol) in romanSymbol) {
-            while (number >= value) {
-               output += symbol;
-               number -= value;
-            }
-         }
-         return output;
-      }
-
-      static string ConvertToWords (int number) {
-         if (number == 0) return "Zero";
-         if (number < 0) return "Minus " + ConvertToWords (Abs (number));
-         string words = "";
-         if ((number / 10_00_000) > 0) {
-            words += ConvertToWords (number / 10_00_000) + " Million ";
-            number %= 10_00_000;
-         }
-         if ((number / 1_000) > 0) {
-            words += ConvertToWords (number / 1_000) + " Thousand ";
-            number %= 1_000;
-         }
-         if ((number / 100) > 0) {
-            words += ConvertToWords (number / 100) + " Hundred ";
-            number %= 100;
-         }
-         if (number > 0) {
-            string[] ones = ["Zero", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen"];
-            string[] tens = ["Zero", "Ten", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"];
-            if (number < 20) words += ones[number];
-            else {
-               words += tens[number / 10];
-               if ((number % 10) > 0) words += " " + ones[number % 10];
-            }
-         }
-         return words;
-      }
-      ReadLine ();
    }
+
+   static string ConvertToRoman (int number) {
+      (int, string)[] romanSymbol = [ (1_000,"M"),(900,"CM"),(500,"D"),(400,"CD"),(100,"C"),
+                   (90,"XC"),(50,"L"),(40,"XL"),(10,"X"),(9,"IX"),(5,"V"),(4,"IV"),(1,"I")];
+      if (number == 0) return "N";
+      string output = "";
+      if (number < 0) (output, number) = ("-", -number);
+      foreach (var (value, symbol) in romanSymbol)
+         while (number >= value) (output, number) = (output + symbol, number - value);
+      return output;
+   }
+
+   static string ConvertToWords (int number) {
+      if (number == 0) return "Zero";
+      if (number < 0) return "Minus " + ConvertToWords (-number);
+      string words = "";
+      if ((number / 1_000_000) > 0) {
+         words += ConvertToWords (number / 1_000_000) + " Million ";
+         number %= 1_000_000;
+      }
+      if ((number / 1_000) > 0) {
+         words += ConvertToWords (number / 1_000) + " Thousand ";
+         number %= 1_000;
+      }
+      if ((number / 100) > 0) {
+         words += ConvertToWords (number / 100) + " Hundred ";
+         number %= 100;
+      }
+      if (number > 0) {
+         if (number < 20) words += sOnes[number];
+         else {
+            words += sTens[number / 10];
+            if ((number % 10) != 0) words += " " + sOnes[number % 10];
+         }
+      }
+      return words;
+   }
+   static string[] sOnes = ["Zero", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight",
+                           "Nine", "Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen",
+                           "Sixteen","Seventeen", "Eighteen", "Nineteen"],
+                   sTens = ["Zero", "Ten", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy"
+                           ,"Eighty", "Ninety"];
 }
-
-
