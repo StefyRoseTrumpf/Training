@@ -13,8 +13,8 @@ internal class Program {
    static void Main (string[] args) {
       int a = ReadValidInt ("Enter the first number: ");
       int b = ReadValidInt ("Enter the second number: ");
-      WriteLine ($"GCD:{Gcd (a, b)}");
-      WriteLine ($"LCM:{Lcm (a, b)}");
+      WriteLine ($"GCD:{GCD (a, b)}");
+      WriteLine ($"LCM:{LCM (a, b)}");
       ReadLine ();
    }
 
@@ -26,18 +26,12 @@ internal class Program {
       return num;
    }
 
-   static int Gcd (int a, int b) {
+   static int GCD (int a, int b) {
       a = Abs (a); b = Abs (b);
-      while (b != 0) {
-         int temp = b;
-         b = a % b;
-         a = temp;
-      }
+      while (b != 0) (a, b) = (b, a % b);
       return a;
    }
 
-   static int Lcm (int a, int b) {
-      if (a == 0 || b == 0) return 0;
-      return Abs (a / Gcd (a, b) * b);
-   }
+   static int LCM (int a, int b) => (a == 0 || b == 0 ? 0 : Abs ((a * b) / GCD (a, b)));
+
 }
