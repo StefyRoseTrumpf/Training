@@ -12,37 +12,28 @@ namespace Training_25;
 internal class Program {
    static void Main (string[] args) {
       OutputEncoding = Encoding.UTF8;
-      string[,] board =
-      {
-        { "♜","♞","♝","♛","♚","♝","♞","♜" },
-        { "♟","♟","♟","♟","♟","♟","♟","♟" },
-        { " "," "," "," "," "," "," "," " },
-        { " "," "," "," "," "," "," "," " },
-        { " "," "," "," "," "," "," "," " },
-        { " "," "," "," "," "," "," "," " },
-        { "♙","♙","♙","♙","♙","♙","♙","♙" },
-        { "♖","♘","♗","♕","♔","♗","♘","♖" }
-        };
+      string[][] board =
+      [
+        ["♜","♞","♝","♛","♚","♝","♞","♜"],
+        ["♟","♟","♟","♟","♟","♟","♟","♟"],
+         ..Enumerable.Range(0, 4).Select(_ => EmptyRow()),
+        ["♙", "♙", "♙", "♙", "♙", "♙", "♙", "♙"],
+        ["♖", "♘", "♗", "♕", "♔", "♗", "♘", "♖"]
+        ];
       PrintBoard (board);
       ReadLine ();
    }
 
-   static void PrintBoard (string[,] board) {
-      string top = "┏━━━━━━━━┳━━━━━━━━┳━━━━━━━━┳━━━━━━━━┳━━━━━━━━┳━━━━━━━━┳━━━━━━━━┳━━━━━━━━┓" +
-                 "\n┃        ┃        ┃        ┃        ┃        ┃        ┃        ┃        ┃";
-      string divider = "┃        ┃        ┃        ┃        ┃        ┃        ┃        ┃        ┃" +
-                     "\n┣━━━━━━━━╋━━━━━━━━╋━━━━━━━━╋━━━━━━━━╋━━━━━━━━╋━━━━━━━━╋━━━━━━━━╋━━━━━━━━┫" +
-                     "\n┃        ┃        ┃        ┃        ┃        ┃        ┃        ┃        ┃";
-      string bottom = "┃        ┃        ┃        ┃        ┃        ┃        ┃        ┃        ┃" +
-                    "\n┗━━━━━━━━┻━━━━━━━━┻━━━━━━━━┻━━━━━━━━┻━━━━━━━━┻━━━━━━━━┻━━━━━━━━┻━━━━━━━━┛";
+   static string[] EmptyRow () => [.. Enumerable.Repeat (" ", 8)];
+
+   static void PrintBoard (string[][] board) {
+      string top = "┏━━━┳━━━┳━━━┳━━━┳━━━┳━━━┳━━━┳━━━┓";
+      string divider = "┣━━━╋━━━╋━━━╋━━━╋━━━╋━━━╋━━━╋━━━┫";
+      string bottom = "┗━━━┻━━━┻━━━┻━━━┻━━━┻━━━┻━━━┻━━━┛";
       WriteLine (top);
       for (int i = 0; i < 8; i++) {
-         Write ("┃");
-         for (int j = 0; j < 8; j++)
-            Write ($"   {board[i, j]}    ┃");
-         WriteLine ();
-         if (i < 7) WriteLine (divider);
-         else WriteLine (bottom);
+         WriteLine ("┃" + string.Join ("┃", board[i].Select (x => $" {x} ")) + "┃");
+         WriteLine (i < 7 ? divider : bottom);
       }
    }
 }
