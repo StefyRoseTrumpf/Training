@@ -3,14 +3,14 @@
 // Copyright (c) Metamation India.
 // ------------------------------------------------------------------
 // Program.cs
-// Program on T02 branch - Assignment Q2: NUMBER TO WORDS AND ROMAN NUMERALS CONVERTER.
+// Assignment 2: NUMBER TO WORDS AND ROMAN NUMERALS CONVERTER.
 // ------------------------------------------------------------------------------------------------
 using static System.Console;
 namespace Training_25;
 
 internal class Program {
-   static void Main (string[] args) {
-      WriteLine ("Enter a number.");
+   static void Main () {
+      WriteLine ("Enter a number: ");
       int num;
       while (!int.TryParse (ReadLine (), out num))
          WriteLine ("Invalid input. Please enter a valid number: ");
@@ -43,25 +43,21 @@ internal class Program {
       if (number < 0) return "Minus " + ConvertToWords (-number);
       string words = "";
       if ((number / 1_000_000) > 0) {
-         words += ConvertToWords (number / 1_000_000) + " Million ";
+         words += $"{ConvertToWords (number / 1_000_000)} Million ";
          number %= 1_000_000;
       }
       if ((number / 1_000) > 0) {
-         words += ConvertToWords (number / 1_000) + " Thousand ";
+         words += $"{ConvertToWords (number / 1_000)} Thousand ";
          number %= 1_000;
       }
       if ((number / 100) > 0) {
-         words += ConvertToWords (number / 100) + " Hundred ";
+         words += $"{ConvertToWords (number / 100)} Hundred ";
          number %= 100;
       }
-      if (number > 0) {
-         if (number < 20) words += sOnes[number];
-         else {
-            words += sTens[number / 10];
-            if ((number % 10) != 0) words += " " + sOnes[number % 10];
-         }
-      }
-      return words;
+      if (number > 0)
+         words += number < 20
+           ? sOnes[number] : $"{sTens[number / 10]}{(number % 10 != 0 ? $" {sOnes[number % 10]}" : "")}";
+      return words.Trim ();
    }
    static string[] sOnes = ["Zero", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight",
                            "Nine", "Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen",
