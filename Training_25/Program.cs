@@ -3,7 +3,7 @@
 // Copyright (c) Metamation India.
 // ------------------------------------------------------------------
 // Program.cs
-// Program on T01 branch - Assignments Q1: NUMBER CONVERSION GAME
+// Assignments 1: NUMBER CONVERSION GAME
 // ------------------------------------------------------------------------------------------------
 using System.Text;
 using static System.Console;
@@ -11,13 +11,13 @@ using static System.Math;
 namespace Training_25;
 
 internal class Program {
-   static void Main (string[] args) {
-      WriteLine ("Enter a number");
-      string? input = ReadLine ();
+   static void Main () {
       int num;
-      while (string.IsNullOrWhiteSpace (input) || !int.TryParse (input, out num)) {
-         WriteLine ("Invalid input. Please enter a  number:");
-         input = ReadLine ();
+      while (true) {
+         Write ("Enter a number: ");
+         string? input = ReadLine ();
+         if (!string.IsNullOrWhiteSpace (input) && int.TryParse (input, out num)) break;
+         WriteLine ("Invalid input. Please enter a number.");
       }
       WriteLine ($"Input: {num}");
       int n = num;
@@ -28,12 +28,10 @@ internal class Program {
          StringBuilder sb = new ();
          while (n > 0) {
             int r = n % 16;
-            n /= 16;
-            if (r < 10) sb.Insert (0, r);
-            else
-               sb.Insert (0, (char)('A' + r - 10));
+            n /= 16;            
+            sb.Insert (0, r < 10 ? r : (char)('A' + r - 10));
          }
-         string hexResult = isNegative ? "-" + sb.ToString () : sb.ToString ();
+         string hexResult = $"{(isNegative ? "-" : "")}{sb}";
          WriteLine ($"HEX: {hexResult}");
       }
       int b = Abs (num);
@@ -44,8 +42,6 @@ internal class Program {
          b /= 2;
          bn.Insert (0, r);
       }
-      string binResult = (num < 0 ? "-" : "") + bn.ToString ();
-      WriteLine ($"Binary: {binResult}");
-      ReadLine ();
+      WriteLine ($"Binary: {(num < 0 ? "-" : "")}{bn}");
    }
 }
