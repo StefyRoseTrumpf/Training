@@ -16,7 +16,7 @@ internal class Program {
          WriteLine ("Invalid input. Please enter a valid number: ");
       string? userChoice;
       while (true) {
-         WriteLine ($"Input: {num}\nConvert {num} to Roman or Words? (Enter roman/word)");
+         WriteLine ($"Input: {num}\nConvert {num} to Roman or Word? (Enter roman/word)");
          userChoice = ReadLine ()?.ToLower ().Trim ();
          switch (userChoice) {
             case "roman": WriteLine (ConvertToRoman (num)); break;
@@ -25,6 +25,7 @@ internal class Program {
          }
          break;
       }
+      Console.WriteLine ("Press any key to exit..."); Console.ReadKey ();
    }
 
    static string ConvertToRoman (int number) {
