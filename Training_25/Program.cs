@@ -3,19 +3,19 @@
 // Copyright (c) Metamation India.
 // ------------------------------------------------------------------
 // Program.cs
-// Program on T03 branch. Assignment Q3:LCM and GCD Generator
+// Assignment 3:LCM and GCD Generator
 // ------------------------------------------------------------------------------------------------
 using static System.Console;
 using static System.Math;
 namespace Training_25;
 
 internal class Program {
-   static void Main (string[] args) {
+   static void Main () {
       int a = ReadValidInt ("Enter the first number: ");
       int b = ReadValidInt ("Enter the second number: ");
       WriteLine ($"GCD:{GCD (a, b)}");
       WriteLine ($"LCM:{LCM (a, b)}");
-      ReadLine ();
+      Console.WriteLine ("Press any key to exit..."); Console.ReadKey ();
    }
 
    static int ReadValidInt (string message) {
