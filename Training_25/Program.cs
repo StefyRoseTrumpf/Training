@@ -28,20 +28,20 @@ internal class Program {
          StringBuilder sb = new ();
          while (n > 0) {
             int r = n % 16;
-            n /= 16;            
-            sb.Insert (0, r < 10 ? r : (char)('A' + r - 10));
+            n /= 16;
+            sb.Append (r < 10 ? r.ToString () : ((char)('A' + r - 10)).ToString ());
          }
-         string hexResult = $"{(isNegative ? "-" : "")}{sb}";
-         WriteLine ($"HEX: {hexResult}");
+         WriteLine ($"HEX: {(isNegative ? "-" : "")}{new ([.. sb.ToString ().Reverse ()])}");
       }
       int b = Abs (num);
       StringBuilder bn = new ();
-      if (b == 0) bn.Insert (0, 0);
+      if (b == 0) bn.Append (0);
       while (b > 0) {
          int r = b % 2;
          b /= 2;
-         bn.Insert (0, r);
+         bn.Append (r);
       }
-      WriteLine ($"Binary: {(num < 0 ? "-" : "")}{bn}");
+      WriteLine ($"Binary: {(num < 0 ? "-" : "")}{new ([.. bn.ToString ().Reverse ()])}");
+      Console.WriteLine ("Press any key to exit..."); Console.ReadKey ();
    }
 }
