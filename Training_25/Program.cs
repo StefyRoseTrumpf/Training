@@ -3,14 +3,14 @@
 // Copyright (c) Metamation India.
 // ------------------------------------------------------------------
 // Program.cs
-// Program on T04 branch. Assignment Q4: Chess Board
+// Assignment 4: Chess Board
 // ------------------------------------------------------------------------------------------------
 using System.Text;
 using static System.Console;
 namespace Training_25;
 
 internal class Program {
-   static void Main (string[] args) {
+   static void Main () {
       OutputEncoding = Encoding.UTF8;
       string[][] board =
       [
@@ -21,7 +21,7 @@ internal class Program {
         ["♖", "♘", "♗", "♕", "♔", "♗", "♘", "♖"]
         ];
       PrintBoard (board);
-      ReadLine ();
+      WriteLine ("Press any key to exit..."); ReadKey ();
    }
 
    static string[] EmptyRow () => [.. Enumerable.Repeat (" ", 8)];
@@ -32,7 +32,7 @@ internal class Program {
       string bottom = "┗━━━┻━━━┻━━━┻━━━┻━━━┻━━━┻━━━┻━━━┛";
       WriteLine (top);
       for (int i = 0; i < 8; i++) {
-         WriteLine ("┃" + string.Join ("┃", board[i].Select (x => $" {x} ")) + "┃");
+         WriteLine ($"┃{string.Join ("┃", board[i].Select (x => $" {x} "))}┃");
          WriteLine (i < 7 ? divider : bottom);
       }
    }
