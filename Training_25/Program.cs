@@ -3,7 +3,7 @@
 // Copyright (c) Metamation India.
 // ------------------------------------------------------------------
 // Program.cs
-// Assignment 2: NUMBER TO WORDS AND ROMAN NUMERALS CONVERTER.
+// Program converts number to words and roman numerals
 // ------------------------------------------------------------------------------------------------
 using static System.Console;
 namespace Training_25;
@@ -14,20 +14,19 @@ internal class Program {
       int num;
       while (!int.TryParse (ReadLine (), out num))
          WriteLine ("Invalid input. Please enter a valid number: ");
-      string? userChoice;
       while (true) {
          WriteLine ($"Input: {num}\nConvert {num} to Roman or Word? (Enter roman/word)");
-         userChoice = ReadLine ()?.ToLower ().Trim ();
-         switch (userChoice) {
+         switch (ReadLine ()?.ToLower ().Trim ()) {
             case "roman": WriteLine (ConvertToRoman (num)); break;
             case "word": WriteLine (ConvertToWords (num)); break;
             default: WriteLine ("Invalid choice! Please enter 'roman' or 'word'."); continue;
          }
          break;
       }
-      Console.WriteLine ("Press any key to exit..."); Console.ReadKey ();
+      WriteLine ("Press any key to exit..."); ReadKey ();
    }
 
+   /// <summary> Converts a given integer to its Roman numeral representation. </summary>
    static string ConvertToRoman (int number) {
       (int, string)[] romanSymbol = [ (1_000,"M"),(900,"CM"),(500,"D"),(400,"CD"),(100,"C"),
                    (90,"XC"),(50,"L"),(40,"XL"),(10,"X"),(9,"IX"),(5,"V"),(4,"IV"),(1,"I")];
@@ -39,6 +38,7 @@ internal class Program {
       return output;
    }
 
+   /// <summary> Converts a given integer to its English words representation. </summary>
    static string ConvertToWords (int number) {
       if (number == 0) return "Zero";
       if (number < 0) return "Minus " + ConvertToWords (-number);
