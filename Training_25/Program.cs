@@ -12,11 +12,12 @@ namespace Training_25;
 internal class Program {
    static void Main () {
       OutputEncoding = Encoding.UTF8;
+      string[] empty = [.. Enumerable.Repeat (" ", 8)];
       string[][] board =
       [
         ["♜","♞","♝","♛","♚","♝","♞","♜"],
         ["♟","♟","♟","♟","♟","♟","♟","♟"],
-        ..Enumerable.Range(0, 4).Select(_ => Enumerable.Repeat(" ", 8).ToArray()),
+        .. Enumerable.Repeat (empty, 4),
         ["♙", "♙", "♙", "♙", "♙", "♙", "♙", "♙"],
         ["♖", "♘", "♗", "♕", "♔", "♗", "♘", "♖"]
         ];
@@ -24,7 +25,8 @@ internal class Program {
       WriteLine ("Press any key to exit..."); ReadKey ();
    }
 
-   //This method prints a formatted 8×8 chessboard with Unicode borders using the given 2D string array.
+   /// <summary> Prints a formatted 8×8 chessboard with Unicode borders and pieces.</summary>
+   /// <param name="board">A 2D string array representing the chessboard pieces in initial position.</param>
    static void PrintBoard (string[][] board) {
       string top = "┏━━━┳━━━┳━━━┳━━━┳━━━┳━━━┳━━━┳━━━┓";
       string divider = "┣━━━╋━━━╋━━━╋━━━╋━━━╋━━━╋━━━╋━━━┫";
