@@ -7,7 +7,6 @@
 // ------------------------------------------------------------------------------------------------
 using System.Text;
 using static System.Console;
-
 namespace Training_25;
 
 internal class Program {
