@@ -3,29 +3,35 @@
 // Copyright (c) Metamation India.
 // ------------------------------------------------------------------
 // Program.cs
-// Program on T09 branch. Assignment Q9: Reduced String.
+// Program reduces string of lowercase charecters by removing pair of adjacent matching letters.
 // ------------------------------------------------------------------------------------------------
 using static System.Console;
 using System.Text;
-namespace Training_25;
-internal class Program {
-   static void Main (string[] args) {
-      WriteLine ("Enter a string:");
-      string? input = ReadLine ()?.ToLower ();
-      while (string.IsNullOrEmpty (input) || input.Any (char.IsDigit)) {
-         Console.WriteLine ("Invalid string. Enter a valid string.");
-         input = ReadLine ()?.ToLower ();
-      }
-      WriteLine (ReducedString (input));
 
-      static string ReducedString (string input) {
-         StringBuilder sb = new ();
-         foreach (char c in input) {
-            if (sb.Length > 0 && sb[sb.Length - 1] == c) sb.Remove (sb.Length - 1, 1);
-            else sb.Append (c);
-         }
-         return sb.Length == 0 ? "Empty string" : sb.ToString ();
+namespace Training_25;
+
+internal class Program {
+   static void Main () {
+      string input = ReadValidString ("Enter a string: ");
+      WriteLine (ReducedString (input));
+   }
+
+   // Continuously prompts until user enters a valid alphabetic string (a–z or A–Z)
+   static string ReadValidString (string prompt) {
+      while (true) {
+         Write (prompt);
+         string? input = ReadLine ()?.ToLower ();
+         if (!string.IsNullOrWhiteSpace (input) && input.All (char.IsLetter))
+            return input;
+         WriteLine ("Invalid string. Please enter letters only (a-z or A-Z).");
       }
-      ReadLine ();
+   }
+
+   // Reduces the string by repeatedly removing adjacent pairs of identical characters.
+   static string ReducedString (string input) {
+      StringBuilder sb = new ();
+      foreach (char c in input)
+         sb = (sb.Length > 0 && sb[^1] == c) ? sb.Remove (sb.Length - 1, 1) : sb.Append (c);
+      return sb.Length == 0 ? "Empty string" : sb.ToString ();
    }
 }
