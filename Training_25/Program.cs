@@ -7,7 +7,6 @@
 // ------------------------------------------------------------------------------------------------
 using System.Text;
 using static System.Console;
-using static System.Math;
 namespace Training_25;
 
 internal class Program {
@@ -26,17 +25,16 @@ internal class Program {
    }
 
    /// <summary>Converts an integer to a string representation in the specified base (2 for binary, 16 for hex, etc.)</summary>
-   static string ConvertToBase (int n, int baseValue) {
+   static string ConvertToBase (int n, int baseVal) {
       if (n == 0) return "0";
-      bool isNegative = n < 0;
-      n = Abs (n);
-      StringBuilder sb = new ();
+      bool neg = n < 0;
+      n = Math.Abs (n);
+      StringBuilder _ = new ();
       while (n > 0) {
-         int remainder = n % baseValue;
-         n /= baseValue;
-         char c = (char)(remainder - 10 + 'A');
-         sb.Append (remainder < 10 ? remainder : (c.ToString ()));
+         int rem = n % baseVal;
+         n /= baseVal;
+         _.Append (rem < 10 ? $"{rem}" : $"{(char)('A' + rem - 10)}");
       }
-      return $"{(isNegative ? "-" : "")}{new ([.. sb.ToString ().Reverse ()])}";
+      return $"{(neg ? "-" : "")}{new ([.. _.ToString ().Reverse ()])}";
    }
 }
