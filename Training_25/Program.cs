@@ -6,6 +6,7 @@
 // Program prints the Pascal's triangle for the given number of rows.
 // ------------------------------------------------------------------------------------------------
 using static System.Console;
+
 namespace Training_25;
 
 internal class Program {
@@ -22,14 +23,13 @@ internal class Program {
       }
    }
 
-   /// <summary>Repeadtedly prompts the user to enter a valid input.</summary>
+   // Repeadtedly prompts the user to enter a valid input.
    static int ReadValidInt (string message) {
       int num;
       while (true) {
          Write (message);
-         string? input = ReadLine ();
-         if (int.TryParse (input, out num) && num >= 0) break;
-         WriteLine ("Invalid input. Please enter a valid number(whole numbers).");
+         if (int.TryParse (ReadLine (), out num) && num > 0 && num < 14) break;
+         WriteLine ("Invalid input. Please enter a valid number(between 1 to 13).");
       }
       return num;
    }
