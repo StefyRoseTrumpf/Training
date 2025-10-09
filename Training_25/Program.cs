@@ -7,6 +7,7 @@
 // ------------------------------------------------------------------------------------------------
 using System.Text;
 using static System.Console;
+
 namespace Training_25;
 
 internal class Program {
@@ -29,12 +30,12 @@ internal class Program {
       if (n == 0) return "0";
       bool neg = n < 0;
       n = Math.Abs (n);
-      StringBuilder _ = new ();
+      StringBuilder sb = new ();
       while (n > 0) {
          int rem = n % baseVal;
          n /= baseVal;
-         _.Append (rem < 10 ? $"{rem}" : $"{(char)('A' + rem - 10)}");
+         sb.Append (rem < 10 ? (char)('0' + rem) : (char)('A' + rem - 10));
       }
-      return $"{(neg ? "-" : "")}{new ([.. _.ToString ().Reverse ()])}";
+      return $"{(neg ? "-" : "")}{new ([.. sb.ToString ().Reverse ()])}";
    }
 }
