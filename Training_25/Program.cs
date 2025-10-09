@@ -3,44 +3,48 @@
 // Copyright (c) Metamation India.
 // ------------------------------------------------------------------
 // Program.cs
-// Program on T08 branch. Assignment Q8: Strong Password.
+// Program to check if a given password is strong or weak.
 // ------------------------------------------------------------------------------------------------
 using static System.Console;
 namespace Training_25;
 
 internal class Program {
-   static void Main (string[] args) {
-      WriteLine ("Enter a password:");
-      string? password = ReadLine ();
-      while (string.IsNullOrWhiteSpace (password)) {
-         WriteLine ("Password cannot be empty.\nEnter a password:");
-         password = ReadLine ();
-      }
-      string reason = IsPasswordStrong (password!);
+   static void Main () {
+      string password = ReadValidPassword ("Enter a password: ");
+      string reason = CheckPasswordStrength (password!);
       if (string.IsNullOrEmpty (reason))
          WriteLine ("Password is strong.");
       else {
-         WriteLine ("Password is weak.\nReasons:");
+         WriteLine ("Password is weak.\nReasons: ");
          WriteLine (reason);
       }
-      ReadLine ();
    }
 
-   static string IsPasswordStrong (string password) {
-      string reason = "";
-      if (password.Length < 6)
-         reason += "- Password should contain at least 6 characters.\n";
-      bool hasUpper = false, hasLower = false, hasDigit = false, hasSpecial = false;
-      foreach (char c in password) {
-         if (char.IsUpper (c)) hasUpper = true;
-         else if (char.IsLower (c)) hasLower = true;
-         else if (char.IsDigit (c)) hasDigit = true;
-         else if ("!@#$%^&*()-+".Contains (c)) hasSpecial = true;
+   /// <summary>Continuously prompts the user until a non-empty password is entered.</summary>
+   static string ReadValidPassword (string prompt) {
+      while (true) {
+         Write (prompt);
+         string? input = ReadLine ();
+         if (!string.IsNullOrWhiteSpace (input))
+            return input.Trim ();
+         WriteLine ("Password cannot be empty.");
       }
-      if (!hasUpper) reason += "- Password should contain at least one uppercase letter.\n";
-      if (!hasLower) reason += "- Password should contain at least one lowercase letter.\n";
-      if (!hasDigit) reason += "- Password should contain at least one digit.\n";
-      if (!hasSpecial) reason += "- Password should contain at least one special character (!@#$%^&*()-+).\n";
-      return reason;
+   }
+
+   /// <summary>Checks password strength based on length, uppercase, lowercase, digit, and special characters.
+   /// Returns reasons if it's weak.</summary>
+   static string CheckPasswordStrength (string password) {
+      var reasons = new List<string> ();
+      if (password.Length < 6)
+         reasons.Add ("- Password should contain at least 6 characters.");
+      if (!password.Any (char.IsUpper))
+         reasons.Add ("- Password should contain at least one uppercase letter.");
+      if (!password.Any (char.IsLower))
+         reasons.Add ("- Password should contain at least one lowercase letter.");
+      if (!password.Any (char.IsDigit))
+         reasons.Add ("- Password should contain at least one digit.");
+      if (!password.Any (c => "!@#$%^&*()-+".Contains (c)))
+         reasons.Add ("- Password should contain at least one special character (!@#$%^&*()-+).");
+      return string.Join ("\n", reasons);
    }
 }
