@@ -13,7 +13,7 @@ internal class Program {
    static void Main () {
       int num = ReadValidInt ("Enter a number to find its digital root: ");
       // Computes the digital root using modular arithmetic
-      WriteLine ($"Digital root: {(num == 0 ? 0 : 1 + (num - 1) % 9)}");
+      WriteLine ($"Digital root: {(num == 0 ? 0 : 1 + ((num - 1) % 9))}");
    }
 
    // Repeatedly prompts the user until a valid integer is entered
@@ -21,7 +21,7 @@ internal class Program {
       while (true) {
          Write (prompt);
          if (int.TryParse (ReadLine (), out int num) && num > 0) return num;
-         WriteLine ("Invalid input. Please enter a valid whole number.");
+         WriteLine ("Invalid input. Please enter a valid whole numbers only(max: 9 digits).");
       }
    }
 }
