@@ -38,7 +38,7 @@ internal class Program {
          sb.AppendLine ("- Password should contain at least one lowercase letter.");
       if (!password.Any (char.IsDigit))
          sb.AppendLine ("- Password should contain at least one digit.");
-      if (!password.Any (c => !char.IsLetterOrDigit (c)))
+      if (password.All (char.IsLetterOrDigit))
          sb.AppendLine ("- Password should contain at least one special character.");
       return sb.ToString ();
    }
