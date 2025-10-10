@@ -21,7 +21,7 @@ internal class Program {
       while (true) {
          Write (prompt);
          if (int.TryParse (ReadLine (), out int num) && num > 0) return num;
-         WriteLine ("Invalid input. Please enter a valid whole numbers only(max: 9 digits).");
+         WriteLine ("Invalid input. Please enter a valid number.");
       }
    }
 }
