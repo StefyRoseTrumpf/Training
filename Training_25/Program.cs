@@ -3,60 +3,47 @@
 // Copyright (c) Metamation India.
 // ------------------------------------------------------------------
 // Program.cs
-// Program on T11.1 branch. Assignment Q11.1: Nth Armstrong Number.
+// Program prints the Nth Armstrong number.
 // ------------------------------------------------------------------------------------------------
 using static System.Console;
 namespace Training_25;
 
 internal class Program {
    static void Main (string[] args) {
-      int n;
-      while (true) {
-         WriteLine ("Enter N to find the Nth Armstrong number (1 to 25): ");
-         if (int.TryParse (ReadLine (), out n) && n >= 1 && n <= 25)
-            break;
-
-         WriteLine ("Invalid input. Please enter a positive integer between 1 and 25.");
-      }
-      long result = FindNthArmstrong (n);
-      WriteLine ($"The {GetOrdinal (n)} Armstrong number is: {result}");
-      ReadLine ();
+      int n = GetValidN (args);
+      WriteLine (FindNthArmstrong (n));
    }
 
-   static long FindNthArmstrong (int n) {
-      int count = 0;
-      long num = 0;
+   // Gets a valid N from args or prompt
+   static int GetValidN (string[] args) {
+      if (args.Length > 0 && int.TryParse (args[0], out int n) && n >= 1 && n <= 25) return n;
       while (true) {
-         if (IsArmstrong (num)) {
-            count++;
-            if (count == n) return num;
-         }
+         Write ("Enter N (1 to 25): ");
+         if (int.TryParse (ReadLine (), out n) && n >= 1 && n <= 25) return n;
+         WriteLine ("Invalid input. Try again.");
+      }
+   }
+
+   // Iterates through integers, counts Armstrong numbers, and returns the Nth one.
+   static int FindNthArmstrong (int n) {
+      int count = 0, num = 0;
+      while (true) {
+         if (IsArmstrong (num) && ++count == n)
+            return num;
          num++;
       }
    }
 
-   static bool IsArmstrong (long num) {
-      long sum = 0, temp = num;
+   // Checks if the given number if Armstrong number (sum of its digits each raised to the power
+   // of the total number of digits equals the number itself.)
+   static bool IsArmstrong (int num) {
+      int sum = 0, n = num;
       int digits = num.ToString ().Length;
-
-      while (temp > 0) {
-         long digit = temp % 10;
-         sum += (long)Math.Pow (digit, digits);
-         temp /= 10;
+      while (num > 0) {
+         int rem;
+         (rem, num) = (num % 10, num / 10);
+         sum += (int)Math.Pow (rem, digits);
       }
-
-      return sum == num;
-   }
-
-   static string GetOrdinal (int n) {
-      int mod100 = n % 100;
-      if (mod100 == 11 || mod100 == 12 || mod100 == 13) return $"{n}th";
-
-      return (n % 10) switch {
-         1 => $"{n}st",
-         2 => $"{n}nd",
-         3 => $"{n}rd",
-         _ => $"{n}th"
-      };
+      return sum == n;
    }
 }
