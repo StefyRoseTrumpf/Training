@@ -10,11 +10,10 @@ namespace Training_25;
 internal class Program {
    static void Main () {
       int num = ReadValidInt ("Enter a number to check if it's an Armstrong number: ");
-      WriteLine (IsArmstrongNumber (num) ? $"{num} is an Armstrong Number."
-         : $"{num} is NOT an Armstrong Number.");
+      WriteLine ($"{num} is {(IsArmstrongNumber (num) ? "" : "NOT ")}an Armstrong Number.");
    }
 
-   // Continuously promts the user to enter a valid positive number.
+   // Continuously prompts the user to enter a valid positive number.
    static int ReadValidInt (string prompt) {
       while (true) {
          Write (prompt);
