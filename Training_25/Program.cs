@@ -13,14 +13,14 @@ namespace Training_25;
 internal class Program {
    static void Main () => WriteLine (ReducedString (ReadValidString ()));
 
-   // Continuously prompts until user enters a valid alphabetic string (a–z or A–Z)
+   // Continuously prompts until user enters a valid string
    static string ReadValidString () {
       while (true) {
          Write ("Enter a string: ");
          string? input = ReadLine ()?.Trim ().ToLower ();
-         if (!string.IsNullOrWhiteSpace (input) && input.All (char.IsLetter))
+         if (!string.IsNullOrWhiteSpace (input) && !input.All (char.IsDigit))
             return input;
-         WriteLine ("Invalid string. Please enter letters only (a-z or A-Z).");
+         WriteLine ("Invalid string. Please enter a valid string.");
       }
    }
 
