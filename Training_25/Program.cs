@@ -11,10 +11,10 @@ namespace Training_25;
 
 internal class Program {
    static void Main () {
-      int a = ReadValidInt ("Enter the first number: ");
-      int b = ReadValidInt ("Enter the second number: ");
+      int a = Abs (ReadValidInt ("Enter the first number: "));
+      int b = Abs (ReadValidInt ("Enter the second number: "));
       int gcd = GCD (a, b);
-      int lcm = (a == 0 || b == 0) ? 0 : Abs ((a * b) / gcd);
+      int lcm = (a == 0 || b == 0) ? 0 : ((a * b) / gcd);
       WriteLine ($"LCM: {lcm}");
       WriteLine ($"GCD: {gcd}");
       WriteLine ("Press any key to exit..."); ReadKey ();
@@ -27,14 +27,13 @@ internal class Program {
          Write (message);
          string? input = ReadLine ();
          if (int.TryParse (input, out num)) break;
-         WriteLine ("Invalid input. Please enter a valid number: ");
+         WriteLine ("Invalid input. Please enter a valid number.");
       }
       return num;
    }
 
    /// <summary>Calculates the Greatest Common Divisor (GCD) of two integers using the Euclidean algorithm.</summary>
    static int GCD (int a, int b) {
-      a = Abs (a); b = Abs (b);
       while (b != 0) (a, b) = (b, a % b);
       return a;
    }
