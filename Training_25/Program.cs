@@ -18,7 +18,7 @@ internal class Program {
       while (true) {
          Write ("Enter a string: ");
          string? input = ReadLine ()?.Trim ().ToLower ();
-         if (!string.IsNullOrWhiteSpace (input) && !input.All (char.IsDigit))
+         if (!string.IsNullOrWhiteSpace (input) && !input.Any (char.IsDigit))
             return input;
          WriteLine ("Invalid string. Please enter a valid string.");
       }
