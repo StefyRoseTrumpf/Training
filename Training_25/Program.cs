@@ -15,12 +15,11 @@ internal class Program {
       Write ("Enter a string: ");
       WriteLine ($"Reversed string: {StringReverser (ReadLine ())}");
    }
+
+   // Returns the reversed string for the entered string by preserving the order of casing and spaces
    static string StringReverser (string? input) {
       if (string.IsNullOrEmpty (input)) return string.Empty;
-      var letters = new StringBuilder ();
-      foreach (char c in input) if (!char.IsWhiteSpace (c)) letters.Append (c);
-      var reversed = letters.ToString ().ToCharArray ();
-      Array.Reverse (reversed);
+      var reversed = input.Where (c => !char.IsWhiteSpace (c)).Reverse ().ToArray ();
       var sb = new StringBuilder ();
       int i = 0;
       foreach (char c in input)
