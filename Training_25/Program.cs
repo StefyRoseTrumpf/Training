@@ -13,8 +13,10 @@ internal class Program {
    static void Main () {
       int a = ReadValidInt ("Enter the first number: ");
       int b = ReadValidInt ("Enter the second number: ");
-      WriteLine ($"LCM:{LCM (a, b)}");
-      WriteLine ($"GCD:{GCD (a, b)}");
+      int gcd = GCD (a, b);
+      int lcm = (a == 0 || b == 0) ? 0 : Abs ((a * b) / gcd);
+      WriteLine ($"LCM: {lcm}");
+      WriteLine ($"GCD: {gcd}");
       WriteLine ("Press any key to exit..."); ReadKey ();
    }
 
@@ -36,7 +38,4 @@ internal class Program {
       while (b != 0) (a, b) = (b, a % b);
       return a;
    }
-
-   /// <summary>Calculates the Least Common Multiple (LCM) of two integers using their GCD.</summary>
-   static int LCM (int a, int b) => (a == 0 || b == 0 ? 0 : Abs ((a * b) / GCD (a, b)));
 }
