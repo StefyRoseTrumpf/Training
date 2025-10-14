@@ -3,24 +3,26 @@
 // Copyright (c) Metamation India.
 // ------------------------------------------------------------------
 // Program.cs
-// Program on main branch.
+// Program returns the most occurring letter from the given string.
 // ------------------------------------------------------------------------------------------------
 using static System.Console;
 namespace Training_25;
 
 internal class Program {
    static void Main () {
-      string s;
+      var (winner, count) = CountVotes (ReadValidString ());
+      WriteLine ($"Winner: {winner} and Votes: {count}");
+   }
+
+   // Reads only alphabetic + whitespace, rejects empty or invalid strings
+   static string ReadValidString () {
       while (true) {
          Write ("Enter a string: ");
-         s = ReadLine ()?.Trim () ?? "";
-         if (!string.IsNullOrEmpty (s) && s.Any (char.IsLetter)
-            && s.All (c => char.IsLetter (c) || char.IsWhiteSpace (c))) break;
-         WriteLine ("Invalid input. Please enter a valig string " +
-                     "(Containing only letters (A - Z or a - z).");
+         string input = ReadLine ()?.Trim () ?? "";
+         if (input.Length > 0 && input.Any (char.IsLetter) &&
+             input.All (c => char.IsLetter (c) || char.IsWhiteSpace (c))) return input;
+         WriteLine ("Invalid input. Enter only letters and spaces.");
       }
-      var (winner, count) = CountVotes (s);
-      WriteLine ($"Winner: {winner} and Votes: {count}");
    }
 
    // Counts character frequencies (ignoring spaces and case), and returns the character with the
@@ -31,10 +33,7 @@ internal class Program {
          char c = s[i];
          if (char.IsWhiteSpace (c)) continue;
          c = char.ToLower (c);
-         if (!freq.TryGetValue (c, out var info))
-            freq[c] = (1, i);
-         else
-            freq[c] = (info.Count + 1, info.FirstIndex);
+         freq[c] = freq.TryGetValue (c, out var info) ? (info.Count + 1, info.FirstIndex) : (1, i);
       }
       char winner = '\0';
       int maxCount = 0;
