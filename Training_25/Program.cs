@@ -18,8 +18,7 @@ internal class Program {
       while (true) {
          Write (prompt);
          string? input = ReadLine ();
-         if (int.TryParse (input, out int num) && num >= 0)
-            return num;
+         if (int.TryParse (input, out int num) && num >= 0) return num;
          WriteLine ("Invalid input. Please enter a valid whole number");
       }
    }
@@ -29,8 +28,7 @@ internal class Program {
    static bool IsArmstrongNumber (int num) {
       int sum = 0, n = num; int digits = num.ToString ().Length;
       while (num > 0) {
-         int rem;
-         (rem, num) = (num % 10, num / 10);
+         (int rem, num) = (num % 10, num / 10);
          sum += (int)Math.Pow (rem, digits);
       }
       return sum == n;
