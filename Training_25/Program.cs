@@ -16,10 +16,10 @@ internal class Program {
 
    // Gets a valid N from args or prompt
    static int GetValidN (string[] args) {
-      if (args.Length > 0 && int.TryParse (args[0], out int n) && n >= 1 && n <= 25) return n;
+      if (args.Length > 0 && int.TryParse (args[0], out int n) && n is >= 1 and <= 25) return n;
       while (true) {
          Write ("Enter N (1 to 25): ");
-         if (int.TryParse (ReadLine (), out n) && n >= 1 && n <= 25) return n;
+         if (int.TryParse (ReadLine (), out n) && n is >= 1 and <= 25) return n;
          WriteLine ("Invalid input. Try again.");
       }
    }
@@ -28,8 +28,7 @@ internal class Program {
    static int FindNthArmstrong (int n) {
       int count = 0, num = 0;
       while (true) {
-         if (IsArmstrong (num) && ++count == n)
-            return num;
+         if (IsArmstrong (num) && ++count == n) return num;
          num++;
       }
    }
@@ -40,8 +39,7 @@ internal class Program {
       int sum = 0, n = num;
       int digits = num.ToString ().Length;
       while (num > 0) {
-         int rem;
-         (rem, num) = (num % 10, num / 10);
+         (int rem, num) = (num % 10, num / 10);
          sum += (int)Math.Pow (rem, digits);
       }
       return sum == n;
