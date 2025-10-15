@@ -7,30 +7,32 @@
 // ------------------------------------------------------------------------------------------------
 using static System.Console;
 namespace Training_25;
+
 internal class Program {
    static void Main () {
-      int num = ReadValidInt ("Enter a number to check if it's an Armstrong number: ");
+      int num = ReadValidInt ();
       WriteLine ($"{num} is {(IsArmstrongNumber (num) ? "" : "NOT ")}an Armstrong Number.");
    }
 
    // Continuously prompts the user to enter a valid positive number.
-   static int ReadValidInt (string prompt) {
+   static int ReadValidInt () {
       while (true) {
-         Write (prompt);
+         Write ("Enter a number to check if it's an Armstrong number: ");
          string? input = ReadLine ();
          if (int.TryParse (input, out int num) && num >= 0) return num;
          WriteLine ("Invalid input. Please enter a valid whole number");
       }
    }
 
-   // Checks if the given number if Armstrong number (sum of its digits each raised to the power
+   // Checks if the given number is Armstrong number (sum of its digits each raised to the power
    // of the total number of digits equals the number itself.)
    static bool IsArmstrongNumber (int num) {
-      int sum = 0, n = num; int digits = num.ToString ().Length;
+      if (num < 10) return true;
+      int sum = 0, org = num, digits = num.ToString ().Length;
       while (num > 0) {
          (int rem, num) = (num % 10, num / 10);
          sum += (int)Math.Pow (rem, digits);
       }
-      return sum == n;
+      return sum == org;
    }
 }
