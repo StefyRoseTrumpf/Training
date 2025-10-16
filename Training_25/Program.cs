@@ -14,7 +14,7 @@ internal class Program {
    static void Main () {
       string reason = CheckPasswordStrength (ReadValidPassword ("Enter a password: "));
       WriteLine (string.IsNullOrEmpty (reason)
-        ? "Password is strong." : $"Password is weak.\nReasons:\n{reason}");
+        ? "Password is strong." : $"Password is weak. Ensure it includes:\n{reason}");
    }
 
    // Continuously prompts the user until a non-empty password is entered.
@@ -31,15 +31,15 @@ internal class Program {
    // Returns reasons if it's weak.
    static string CheckPasswordStrength (string password) {
       var sb = new StringBuilder ();
-      if (password.Length < 6) sb.AppendLine ("- Password should contain at least 6 characters.");
+      if (password.Length < 6) sb.AppendLine ("- At least 6 characters.");
       if (!password.Any (char.IsUpper))
-         sb.AppendLine ("- Password should contain at least one uppercase letter.");
+         sb.AppendLine ("- At least one uppercase letter.");
       if (!password.Any (char.IsLower))
-         sb.AppendLine ("- Password should contain at least one lowercase letter.");
+         sb.AppendLine ("- At least one lowercase letter.");
       if (!password.Any (char.IsDigit))
-         sb.AppendLine ("- Password should contain at least one digit.");
+         sb.AppendLine ("- At least one digit.");
       if (password.All (char.IsLetterOrDigit))
-         sb.AppendLine ("- Password should contain at least one special character.");
+         sb.AppendLine ("- At least one special character.");
       return sb.ToString ();
    }
 }
