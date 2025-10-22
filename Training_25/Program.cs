@@ -10,24 +10,22 @@ namespace Training_25;
 
 internal class Program {
    static void Main () {
-      do {
+      while (true) {
          int num = ReadValidInt ();
-         WriteLine ($"{num} is {(IsArmstrongNumber (num) ? "" : "NOT ")}an Armstrong Number.");
-         Write ("Do you want to check another number? (enter 'Y' to continue or any other key to exit the program): ");
-         var c = ReadKey ();
-         if (c.Key != ConsoleKey.Y) {
+         WriteLine ($"{num} is {(IsArmstrongNumber (num) ? "" : "NOT ")}an Armstrong Number." +
+            $"\nDo you want to check another number? (enter 'Y' to continue or any other key to exit the program): ");
+         if (ReadKey ().Key != ConsoleKey.Y) {
             WriteLine ("\nExiting the program.");
             break;
          }
-      } while (true);
+      }
    }
 
    // Continuously prompts the user to enter a valid positive number.
    static int ReadValidInt () {
       while (true) {
          Write ("\nEnter a number to check if it's an Armstrong number: ");
-         string? input = ReadLine ();
-         if (int.TryParse (input, out int num) && num >= 0) return num;
+         if (int.TryParse (ReadLine (), out int num) && num >= 0) return num;
          WriteLine ("Invalid input. Please enter a valid whole number.");
       }
    }
