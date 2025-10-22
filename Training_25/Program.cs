@@ -13,7 +13,8 @@ internal class Program {
       while (true) {
          int num = ReadValidInt ();
          WriteLine ($"{num} is {(IsArmstrongNumber (num) ? "" : "NOT ")}an Armstrong Number." +
-            $"\nDo you want to check another number? (enter 'Y' to continue or any other key to exit the program): ");
+            $"\nDo you want to check another number? " +
+            $"(enter 'Y' to continue or any other key to exit the program): ");
          if (ReadKey ().Key != ConsoleKey.Y) {
             WriteLine ("\nExiting the program.");
             break;
