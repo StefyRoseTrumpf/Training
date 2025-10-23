@@ -10,18 +10,17 @@ namespace Training_25;
 
 internal class Program {
    static void Main (string[] args) {
-      int n = GetValidN (args);
-      WriteLine (FindNthArmstrong (n));
+      int num = GetValidInput (args);
+      Write (FindNthArmstrong (num));
    }
 
-   // Gets a valid N from args or prompt
-   static int GetValidN (string[] args) {
-      if (args.Length > 0 && int.TryParse (args[0], out int n) && n is >= 1 and <= 25) return n;
-      while (true) {
-         Write ("Enter N (1 to 25): ");
-         if (int.TryParse (ReadLine (), out n) && n is >= 1 and <= 25) return n;
-         WriteLine ("Invalid input. Try again.");
-      }
+   // Gets a valid number from args or prompt
+   static int GetValidInput (string[] args) {
+      if (args.Length > 0 && int.TryParse (args[0], out int num) && num >= 1 && num <= 25)
+         return num;
+      WriteLine ("Invalid input.");
+      Environment.Exit (0);
+      return 0;
    }
 
    // Iterates through integers, counts Armstrong numbers, and returns the Nth one.
@@ -33,15 +32,15 @@ internal class Program {
       }
    }
 
-   // Checks if the given number if Armstrong number (sum of its digits each raised to the power
+   // Checks if the given number is Armstrong number (sum of its digits each raised to the power
    // of the total number of digits equals the number itself.)
    static bool IsArmstrong (int num) {
-      int sum = 0, n = num;
-      int digits = num.ToString ().Length;
+      if (num < 10) return true;
+      int sum = 0, orgNum = num, digits = num.ToString ().Length;
       while (num > 0) {
          (int rem, num) = (num % 10, num / 10);
          sum += (int)Math.Pow (rem, digits);
       }
-      return sum == n;
+      return sum == orgNum;
    }
 }
