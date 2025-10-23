@@ -9,19 +9,12 @@ using static System.Console;
 namespace Training_25;
 
 internal class Program {
-   static void Main (string[] args) {
-      int num = GetValidInput (args);
-      Write (FindNthArmstrong (num));
-   }
-
-   // Gets a valid number from args or prompt
-   static int GetValidInput (string[] args) {
-      if (args.Length > 0 && int.TryParse (args[0], out int num) && num >= 1 && num <= 25)
-         return num;
-      WriteLine ("Invalid input.");
-      Environment.Exit (0);
-      return 0;
-   }
+   static void Main (string[] args) => WriteLine (args.Length > 0
+                            && int.TryParse (args[0], out int num)
+                            && num >= 1
+                            && num <= 25
+                            ? FindNthArmstrong (num)
+                            : "Invalid input");
 
    // Iterates through integers, counts Armstrong numbers, and returns the Nth one.
    static int FindNthArmstrong (int n) {
