@@ -19,8 +19,7 @@ internal class Program {
       while (true) {
          Write ("Enter a string: ");
          string input = (ReadLine () ?? "").Trim ().ToLower ();
-         if (input.Length == 0
-            || input.Any (c => !char.IsLetter (c) && !char.IsWhiteSpace (c)))
+         if (input.Length == 0 || input.Any (c => !char.IsLetter (c) && !char.IsWhiteSpace (c)))
             WriteLine ("Invalid input. Enter only letters and spaces.");
          else return input;
       }
@@ -28,7 +27,7 @@ internal class Program {
 
    // Counts character frequencies (ignoring spaces and case), and returns the character with the
    // highest frequency. If there's a tie, the one appearing earliest in the string wins.
-   static (char winner, int count) CountVotes (string votes) {
+   static (char Winner, int Count) CountVotes (string votes) {
       Dictionary<char, int> contest = [];
       foreach (char c in votes) {
          if (char.IsWhiteSpace (c)) continue;
