@@ -17,21 +17,18 @@ internal class Program {
    static void GetInputs (out char[] arr, out char special, out char ord) {
       while (true) {
          Write ("Enter a string: ");
-         string? arrInput = ReadLine ()?.Trim ().ToLower ();
+         arr = (ReadLine () ?? "").Trim ().ToLower ().ToCharArray();
          Write ("Enter the special character: ");
-         char splInput = char.ToLower (ReadKey ().KeyChar);
+         special = char.ToLower (ReadKey ().KeyChar);
          Write ("\nEnter sort order ('d' for descending / any other key for ascending): ");
-         char ordInput = char.ToLower (ReadKey ().KeyChar);
+         ord = char.ToLower (ReadKey ().KeyChar);
          WriteLine ();
-         if (string.IsNullOrEmpty (arrInput) || arrInput.Any (c => !char.IsLetter (c))
-                                             || !char.IsLetter (splInput)
-                                             || !char.IsLetter (ordInput)) {
+         if (arr.Length == 0 || arr.Any (c => !char.IsLetter (c))
+                                             || !char.IsLetter (special)
+                                             || !char.IsLetter (ord)) {
             WriteLine ("Invalid Input. Try again.");
             continue;
          }
-         arr = arrInput.ToCharArray ();
-         special = splInput;
-         ord = ordInput;
          break;
       }
    }
@@ -41,8 +38,8 @@ internal class Program {
    static string SortAndSwap (char[] arr, in char special, in char order = 'a') {
       List<char> normalChars = [], specialChars = [];
       foreach (char c in arr) (c == special ? specialChars : normalChars).Add (c);
-      char ord = order;
-      normalChars.Sort ((x, y) => ord == 'd' ? y.CompareTo (x) : x.CompareTo (y));
+      bool isDescending = order == 'd';
+      normalChars.Sort ((x, y) => isDescending ? y.CompareTo (x) : x.CompareTo (y));
       arr = [.. normalChars, .. specialChars]; return string.Join (", ", arr);
    }
 }
