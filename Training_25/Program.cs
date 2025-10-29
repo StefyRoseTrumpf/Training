@@ -9,10 +9,16 @@ using static System.Console;
 namespace Training_25;
 internal class Program {
    static void Main () {
-      Write ("Enter a number: ");
-      int number = Convert.ToInt32 (ReadLine ());
-      string result = GetExcelColumnName (number);
-      WriteLine ($"{number} -> {result}");
+      int number;
+      while (true) {
+         Write ("Enter a number: ");
+         if (!int.TryParse (ReadLine (), out number)) {
+            WriteLine ("Invalid input. Please enter a valid integer.");
+            continue;
+         }
+         break;
+      }
+      WriteLine ($"{number}-->{GetExcelColumnName (number)}");
    }
 
    // Function to convert a given number to its corresponding Excel column name.
