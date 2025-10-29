@@ -11,7 +11,7 @@ internal class Program {
    static void Main () {
       string? input;
       while (true) {
-         WriteLine ("Enter a string of numbers separated by comma: ");
+         Write ("Enter a string of numbers separated by comma: ");
          input = ReadLine ();
          if (string.IsNullOrEmpty (input) || input.Any (char.IsLetter)) {
             WriteLine ("Input cannot be empty. Please enter a valid string of numbers.");
@@ -19,7 +19,7 @@ internal class Program {
          }
          break;
       }
-      WriteLine (SortEvenOdd (input));
+      SortEvenOdd (input);
    }
 
    // Function to sort even and odd numbers
