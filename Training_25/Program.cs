@@ -10,22 +10,22 @@ namespace Training_25;
 
 internal class Program {
    static void Main () {
-      GetInputs (out char[] arr, out char special, out char ord);
-      WriteLine ($"Result: {SortAndSwap (arr, special, ord)}");
+      GetInputs (out char[] arr, out char splChar, out char order);
+      WriteLine ($"Result: {(order == 'a' ? SortAndSwap (arr, splChar) :SortAndSwap (arr, splChar, order))}");
    }
 
-   static void GetInputs (out char[] arr, out char special, out char ord) {
+   // Gets valid inputs from the user.
+   static void GetInputs (out char[] arr, out char splChar, out char order) {
       while (true) {
          Write ("Enter a string: ");
-         arr = (ReadLine () ?? "").Trim ().ToLower ().ToCharArray();
+         arr = (ReadLine () ?? "").Trim ().ToLower ().ToCharArray ();
          Write ("Enter the special character: ");
-         special = char.ToLower (ReadKey ().KeyChar);
-         Write ("\nEnter sort order ('d' for descending / any other key for ascending): ");
-         ord = char.ToLower (ReadKey ().KeyChar);
+         splChar = char.ToLower (ReadKey ().KeyChar);
+         Write ("\nEnter sort order (D)escending / any other letter for ascending: ");
+         order = char.ToLower (ReadKey ().KeyChar);
          WriteLine ();
-         if (arr.Length == 0 || arr.Any (c => !char.IsLetter (c))
-                                             || !char.IsLetter (special)
-                                             || !char.IsLetter (ord)) {
+         if (arr.Length == 0 || arr.Any (c => !char.IsLetter (c)) ||
+            !char.IsLetter (splChar) || !char.IsLetter (order)) {
             WriteLine ("Invalid Input. Try again.");
             continue;
          }
@@ -35,9 +35,9 @@ internal class Program {
 
    // Sorts the characters based on the given order and moves
    // all occurrences of the special character to the end.
-   static string SortAndSwap (char[] arr, in char special, in char order = 'a') {
+   static string SortAndSwap (char[] arr, in char splChar, in char order = 'a') {
       List<char> normalChars = [], specialChars = [];
-      foreach (char c in arr) (c == special ? specialChars : normalChars).Add (c);
+      foreach (char c in arr) (c == splChar ? specialChars : normalChars).Add (c);
       bool isDescending = order == 'd';
       normalChars.Sort ((x, y) => isDescending ? y.CompareTo (x) : x.CompareTo (y));
       arr = [.. normalChars, .. specialChars]; return string.Join (", ", arr);
