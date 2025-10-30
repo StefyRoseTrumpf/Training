@@ -10,17 +10,20 @@ namespace Training_25;
 
 internal class Program {
    static void Main () {
-      WriteLine ("Enter a number: ");
-      int num;
-      while (!int.TryParse (ReadLine (), out num))
-         WriteLine ("Invalid input. Please enter a valid number: ");
       while (true) {
-         WriteLine ($"Input: {num}\nConvert {num} to Roman or Word? (Enter roman/word)");
-         switch (ReadLine ()?.ToLower ().Trim ()) {
-            case "roman": WriteLine (ConvertToRoman (num)); break;
-            case "word": WriteLine (ConvertToWords (num)); break;
-            default: WriteLine ("Invalid choice! Please enter 'roman' or 'word'."); continue;
+         Write ("Convert the number to Roman numerals (1) or Words (2): ");
+         ConsoleKeyInfo key = ReadKey ();
+         WriteLine ();
+         if (key.KeyChar != '1' && key.KeyChar != '2') {
+            WriteLine ("Invalid choice. Please enter '1' for Roman or '2' for Words.\n");
+            continue;
          }
+         Write ("Enter the number: ");
+         if (!int.TryParse (ReadLine (), out int num) || num <= 0) {
+            WriteLine ("Invalid number. Please enter a positive integer.\n");
+            continue;
+         }
+         WriteLine (key.Key == ConsoleKey.D1 ? ConvertToRoman (num) : ConvertToWords (num));
          break;
       }
       WriteLine ("Press any key to exit..."); ReadKey ();
@@ -54,10 +57,11 @@ internal class Program {
       if ((number / 100) > 0) {
          words += $"{ConvertToWords (number / 100)} Hundred ";
          number %= 100;
+         words += number > 0 ? "and " : " ";
       }
       if (number > 0)
          words += number < 20
-           ? sOnes[number] : $"{sTens[number / 10]}{(number % 10 != 0 ? $" {sOnes[number % 10]}" : "")}";
+           ? sOnes[number] : $"{sTens[number / 10]}{((number % 10) > 0 ? $" {sOnes[number % 10]}" : "")}";
       return words.Trim ();
    }
    static string[] sOnes = ["Zero", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight",
