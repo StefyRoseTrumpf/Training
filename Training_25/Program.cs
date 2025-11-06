@@ -11,7 +11,7 @@ namespace Training_25;
 internal class Program {
    static void Main () {
       GetInputs (out char[] arr, out char splChar, out char order);
-      WriteLine ($"Result: {(order == 'a' ? SortAndSwap (arr, splChar) :SortAndSwap (arr, splChar, order))}");
+      WriteLine ($"Result: {(order == 'd' ? SortAndSwap (arr, splChar, order) : SortAndSwap (arr, splChar))}");
    }
 
    // Gets valid inputs from the user.
